@@ -1,0 +1,123 @@
+---
+import logo from "@/assets/logo_s-bg.png"
+import bgHeader from "@/assets/bg-header.jpg"
+import '@fontsource/major-mono-display';
+---
+
+
+<header class="fixed top-0 sticky-parallax-header h-screen w-screen bg-cover text-white" style={`background-image: url(${bgHeader.src});`}>
+    <nav class="flex justify-center w-screen">
+        <ul class="lg:compu celu md:tablet animation flex gap-12  backdrop-blur-lg p-2 border-black border rounded-md h-min font-mono">
+            <li><a href="#inicio" class="decrypt scroll-top" data-value="Inicio">Inicio</a></li>
+            <li><a href="#sobreMi" class="decrypt" data-value="Sobre Mi">Sobre Mi</a></li>
+            <li><a href="#proyectos" class="decrypt" data-value="Proyectos">Proyectos</a></li>
+        </ul>
+    </nav>
+    <section class="flex items-center justify-center h-4/5 gap-12">
+        <a href="#inicio" class="scroll-top">
+            <img src={logo.src} alt="Logo" class="size-14 sticky-parallax-image">
+        </a>
+        <div class="flex flex-col flex-wrap content-center justify-center text-3xl sticky-parallax-text bg-[#0000008a] backdrop-blur-md">
+            <h1>Desarrollador FullStack</h1> 
+            <h2>Java - Springboot</h2>
+            <h2>ReactJS - Astro</h2>
+        </div>
+    </section>
+</header>
+<style>
+
+@keyframes sticky-parallax-text-principal {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.sticky-parallax-text {
+    animation: sticky-parallax-text-principal linear forwards;
+    animation-timeline: scroll();
+    animation-range: 40vh 70vh;
+}
+@keyframes sticky-parallax-move-image {
+    0% {
+        transform: scale(2.9);
+    }
+    50%{
+        transform: scale(1);
+    }
+    100% {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+.sticky-parallax-image{
+    animation: sticky-parallax-move-image linear forwards;
+    animation-timeline: scroll();
+    animation-range: 0vh 90vh;
+}
+
+@keyframes sticky-parallax-header-move-and-size {
+    from {
+        background-position: 50% 0;
+        height: 100vh;
+    }
+    to {
+        background-position: 50% 100%;
+        height: 10vh;
+    }
+}
+
+.sticky-parallax-header {
+    animation: sticky-parallax-header-move-and-size linear forwards;
+    animation-timeline: scroll();
+    animation-range: 0vh 90vh;
+    background-position: 50% 50%;
+}
+
+/* @keyframes parallax-header-menu-compu {
+    from {
+        transform: translateX(calc(-50vw + 50%));
+        opacity: 0.8;
+    }
+    to {
+        transform: translateX(calc(-20vw + 50%));
+        opacity: 1;
+    }
+}
+
+@keyframes parallax-header-menu-tablet {
+    from {
+        transform: translateX(calc(-50vw + 50%));
+        opacity: 0.8;
+    }
+    to {
+        transform: translateX(calc(-30vw + 50%));
+        opacity: 1;
+    }
+}
+
+.animation {
+    animation-timeline: scroll();
+    animation-range: 0vh 90vh;
+}
+
+.compu {
+    animation: parallax-header-menu-compu linear forwards;
+}
+
+.tablet {
+    animation: parallax-header-menu-tablet linear forwards;
+} */
+</style>
+<script>
+    document.querySelectorAll('.scroll-top').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
