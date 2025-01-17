@@ -16,6 +16,7 @@ export default {
 			},
 			fontFamily: {
 				mono: ['Major Mono Display', ...defaultTheme.fontFamily.mono],
+				display: ['Bungee Shade', ...defaultTheme.fontFamily.serif],
 			},
 			colors: {
 				verdeFuerte: "#009241",
