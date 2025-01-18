@@ -1,3 +1,6 @@
+---
+import LoaderWeb from "@/components/LoaderWeb.astro"
+---
 <!doctype html>
 <html lang="es">
 	<head>
@@ -8,9 +11,9 @@
 		<title>Kannemann Alejo - Portafolio</title>
 	</head>
 	<body>
+		<LoaderWeb />
 		<slot />
 	</body>
-	<script src="/src/animations/decrypted.js" is:inline/>
 </html>
 
 <style>
