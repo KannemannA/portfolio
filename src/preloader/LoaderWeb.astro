@@ -8,19 +8,18 @@
     const progressContainer = document.querySelector(".progress-container")
     const progressBar = document.querySelector(".progress-bar")
     const progressText = document.querySelector(".progress-text")
-    
+
     const resourceMap = new Map();
     let totalResources = 0;
     let loadedResources = 0;
     let totalBytes = 0;
     let loadedBytes = 0;
 
-    const getResourceSize = (entry) => {
-        // Priorizar transferSize (incluye headers) o decodedBodySize
+    const getResourceSize = (entry: any) => {
         return entry.transferSize || entry.decodedBodySize || 0;
     };
 
-    const processResource = (entry) => {
+    const processResource = (entry: any) => {
         if (!isValidResource(entry) || resourceMap.has(entry.name)) return;
 
         const resourceSize = getResourceSize(entry);
@@ -32,7 +31,6 @@
             sizeKnown: isSizeKnown
         });
 
-        // Actualizar totales
         totalResources += isSizeKnown ? 0 : 1;
         totalBytes += resourceSize;
 
@@ -45,11 +43,10 @@
         updateProgress();
     };
 
-    const trackElement = (el) => {
+    const trackElement = (el: any) => {
         const src = el.src || el.href;
         if (!src || resourceMap.has(src)) return;
 
-        // Elementos sin información de tamaño
         resourceMap.set(src, {
             loaded: false,
             size: 0,
@@ -69,20 +66,20 @@
     };
 
     const updateProgress = () => {
-        // Calcular progreso ponderado
         const resourceProgress = totalResources > 0 ? 
-            (loadedResources / totalResources) * 50 : 0; // 50% del peso
+            (loadedResources / totalResources) * 50 : 0;
         
         const byteProgress = totalBytes > 0 ? 
-            (loadedBytes / totalBytes) * 50 : 0; // 50% del peso
+            (loadedBytes / totalBytes) * 50 : 0;
 
         const totalProgress = Math.min(resourceProgress + byteProgress, 100);
         
-        progressBar.style.width = `${totalProgress}%`;
+        if(progressBar instanceof HTMLElement && progressText){
+          progressBar.style.width = `${totalProgress}%`;
         progressText.textContent = `${Math.round(totalProgress)}%`;
+        }
     };
 
-    // 4. Observadores mejorados
     const resourceObserver = new PerformanceObserver(list => {
         list.getEntriesByType('resource').forEach(processResource);
     });
@@ -90,7 +87,7 @@
     const mutationObserver = new MutationObserver(mutations => {
         mutations.forEach(mutation => {
             mutation.addedNodes.forEach(node => {
-                if (node.nodeType === 1) { // Solo elementos
+                if (node.nodeType === 1) {
                     if (['IMG', 'SCRIPT', 'LINK'].includes(node.tagName)) trackElement(node);
                     node.querySelectorAll?.('img, script[src], link[rel="stylesheet"]').forEach(trackElement);
                 }
@@ -98,24 +95,19 @@
         });
     });
 
-    // 5. Inicialización precisa
     resourceObserver.observe({ type: 'resource', buffered: true });
     mutationObserver.observe(document.documentElement, {
         childList: true,
         subtree: true
     });
 
-    // Procesar recursos cargados antes del observer
     performance.getEntriesByType('resource').forEach(processResource);
 
-    // Trackear elementos ya presentes
     document.querySelectorAll('img, script[src], link[rel="stylesheet"]').forEach(trackElement);
     updateProgress();
 
-    // 6. Manejo de edge cases
     window.addEventListener('load', () => {
       setTimeout(() => {
-            // Forzar recursos restantes como cargados
             resourceMap.forEach(resource => {
                 if (!resource.loaded) {
                     loadedResources += resource.sizeKnown ? 0 : 1;
@@ -126,7 +118,11 @@
             updateProgress();
         }, 1500);
         setTimeout(() => {
-            progressContainer.id = "end-load"
+            if (progressContainer) {
+              progressContainer.id = "end-load"
+            }else {
+              console.error("fallo progressContainer")
+            }
         }, 1800);
         setTimeout(() => {
             document.body.style.overflow = 'auto';
