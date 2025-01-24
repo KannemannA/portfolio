@@ -1,0 +1,191 @@
+<div class="progress-container">
+  <div class="progress-bar"></div>
+  <span class="progress-text">0%</span>
+</div>
+
+<script>
+  (() => {
+    const progressContainer = document.querySelector(".progress-container")
+    const progressBar = document.querySelector(".progress-bar")
+    const progressText = document.querySelector(".progress-text")
+    
+    const resourceMap = new Map();
+    let totalResources = 0;
+    let loadedResources = 0;
+    let totalBytes = 0;
+    let loadedBytes = 0;
+
+    const getResourceSize = (entry) => {
+        // Priorizar transferSize (incluye headers) o decodedBodySize
+        return entry.transferSize || entry.decodedBodySize || 0;
+    };
+
+    const processResource = (entry) => {
+        if (!isValidResource(entry) || resourceMap.has(entry.name)) return;
+
+        const resourceSize = getResourceSize(entry);
+        const isSizeKnown = resourceSize > 0;
+        
+        resourceMap.set(entry.name, {
+            loaded: false,
+            size: resourceSize,
+            sizeKnown: isSizeKnown
+        });
+
+        // Actualizar totales
+        totalResources += isSizeKnown ? 0 : 1;
+        totalBytes += resourceSize;
+
+        if (entry.duration > 0 && entry.responseStatus !== 404) {
+            resourceMap.get(entry.name).loaded = true;
+            loadedResources += isSizeKnown ? 0 : 1;
+            loadedBytes += resourceSize;
+        }
+
+        updateProgress();
+    };
+
+    const trackElement = (el) => {
+        const src = el.src || el.href;
+        if (!src || resourceMap.has(src)) return;
+
+        // Elementos sin información de tamaño
+        resourceMap.set(src, {
+            loaded: false,
+            size: 0,
+            sizeKnown: false
+        });
+        totalResources++;
+        
+        const onLoad = () => {
+            const resource = resourceMap.get(src);
+            resource.loaded = true;
+            loadedResources++;
+            updateProgress();
+            el.removeEventListener('load', onLoad);
+        };
+
+        el.addEventListener('load', onLoad);
+    };
+
+    const updateProgress = () => {
+        // Calcular progreso ponderado
+        const resourceProgress = totalResources > 0 ? 
+            (loadedResources / totalResources) * 50 : 0; // 50% del peso
+        
+        const byteProgress = totalBytes > 0 ? 
+            (loadedBytes / totalBytes) * 50 : 0; // 50% del peso
+
+        const totalProgress = Math.min(resourceProgress + byteProgress, 100);
+        
+        progressBar.style.width = `${totalProgress}%`;
+        progressText.textContent = `${Math.round(totalProgress)}%`;
+    };
+
+    // 4. Observadores mejorados
+    const resourceObserver = new PerformanceObserver(list => {
+        list.getEntriesByType('resource').forEach(processResource);
+    });
+
+    const mutationObserver = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+                if (node.nodeType === 1) { // Solo elementos
+                    if (['IMG', 'SCRIPT', 'LINK'].includes(node.tagName)) trackElement(node);
+                    node.querySelectorAll?.('img, script[src], link[rel="stylesheet"]').forEach(trackElement);
+                }
+            });
+        });
+    });
+
+    // 5. Inicialización precisa
+    resourceObserver.observe({ type: 'resource', buffered: true });
+    mutationObserver.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+    });
+
+    // Procesar recursos cargados antes del observer
+    performance.getEntriesByType('resource').forEach(processResource);
+
+    // Trackear elementos ya presentes
+    document.querySelectorAll('img, script[src], link[rel="stylesheet"]').forEach(trackElement);
+    updateProgress();
+
+    // 6. Manejo de edge cases
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+            // Forzar recursos restantes como cargados
+            resourceMap.forEach(resource => {
+                if (!resource.loaded) {
+                    loadedResources += resource.sizeKnown ? 0 : 1;
+                    loadedBytes += resource.size;
+                    resource.loaded = true;
+                }
+            });
+            updateProgress();
+        }, 1500);
+        setTimeout(() => {
+            progressContainer.id = "end-load"
+        }, 1800);
+        setTimeout(() => {
+            document.body.style.overflow = 'auto';
+        }, 2800);
+    });
+
+    // Helpers
+    function isValidResource(entry) {
+        return !entry.name.startsWith('data:') &&
+            !entry.name.includes('chrome-extension') &&
+            !entry.name.includes('astro-dev-toolbar');
+    }
+})();
+</script>
+
+
+<style>
+  #end-load {
+    animation: loadAnimation 1s ease-in-out forwards;
+  }
+
+  @keyframes loadAnimation {
+    99% {
+      transform: translateY(-100vh);
+    }
+    100% {
+      display: none;
+    }
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+  .progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #dddddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .progress-bar {
+    width: 0%;
+    height: 4px;
+    background: #02286e;
+    transition: width 0.3s ease-out;
+    border-radius: 2px;
+  }
+
+  .progress-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+  }
+</style>
