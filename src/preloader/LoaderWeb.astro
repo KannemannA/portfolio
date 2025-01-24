@@ -88,8 +88,9 @@
         mutations.forEach(mutation => {
             mutation.addedNodes.forEach(node => {
                 if (node.nodeType === 1) {
-                    if (['IMG', 'SCRIPT', 'LINK'].includes(node.tagName)) trackElement(node);
-                    node.querySelectorAll?.('img, script[src], link[rel="stylesheet"]').forEach(trackElement);
+                    const element = node as Element;
+                    if (['IMG', 'SCRIPT', 'LINK'].includes(element.tagName)) trackElement(node);
+                    element.querySelectorAll?.('img, script[src], link[rel="stylesheet"]').forEach(trackElement);
                 }
             });
         });
@@ -129,8 +130,7 @@
         }, 2800);
     });
 
-    // Helpers
-    function isValidResource(entry) {
+    function isValidResource(entry: any) {
         return !entry.name.startsWith('data:') &&
             !entry.name.includes('chrome-extension') &&
             !entry.name.includes('astro-dev-toolbar');
