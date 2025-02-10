@@ -3,15 +3,19 @@ interface Props {
     content: string;
 }
 const {content}=Astro.props
+const words = content.split(" ")
 ---
 <div class="text-container">
     {
-        content.split('').map((letra, index) => 
-            letra === ' ' ? ' ' : (
-                <span class="inline-block">
-                    {letra}
-                </span>
-            )
+        words.map((palabra) =>
+            <div class="inline-flex flex-wrap">
+                {palabra.split("").map((letra)=>
+                    <span class="inline-block">
+                        {letra}
+                    </span>
+                )}
+            </div>
+            <div class="inline"> </div>
         )
     }
 </div>
@@ -34,7 +38,6 @@ const {content}=Astro.props
 </style>
 
 <script>
-    // Seleccionar cada contenedor y manejar sus spans independientemente
     document.querySelectorAll('.text-container').forEach(container => {
         container.querySelectorAll('span').forEach((span, index) => {
             span.style.setProperty('--index', index.toString());

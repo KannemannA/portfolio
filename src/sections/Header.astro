@@ -4,25 +4,28 @@ import bgHeader from "@/assets/bg-header.jpg"
 import '@fontsource/major-mono-display';
 import '@fontsource/bungee-shade';
 import PrincipalText from "@/components/PrincipalText.astro";
+import MenuHamb from "@/components/MenuHamb.tsx"
 ---
 <!-- breakpoints tailwind min-width:
     lg: 1024px
     md:768px
-    sm:640px -->
+    sm:640px 
+    tip class: max-w-screen-xl  max-width: 1280px-->
 
-<header class="fixed top-0 sticky-parallax-header h-screen w-screen bg-cover text-white" style={`background-image: url(${bgHeader.src});`}>
-    <nav class="flex justify-center w-screen">
-        <ul class="lg:compu celu md:tablet  animation flex gap-12  backdrop-blur-lg p-2 border-black border rounded-md h-min font-mono">
+<header class="fixed top-0 sticky-parallax-header h-screen w-screen bg-cover text-white z-10" style={`background-image: url(${bgHeader.src});`}>
+    <nav class="hidden justify-center w-screen sm:flex">
+        <ul class="animation flex gap-12  backdrop-blur-lg p-2 border-black border rounded-md h-min font-mono">
             <li><a href="#inicio" class="decrypt scroll-top" data-value="Inicio">Inicio</a></li>
             <li><a href="#sobreMi" class="decrypt" data-value="Sobre Mi">Sobre Mi</a></li>
             <li><a href="#proyectos" class="decrypt" data-value="Proyectos">Proyectos</a></li>
         </ul>
     </nav>
-    <section class="flex items-center justify-center h-4/5 gap-12">
+    <MenuHamb />
+    <section class="flex items-center justify-center h-4/5 gap-12 flex-col sm:flex-row">
         <a href="#inicio" class="scroll-top">
             <img src={logo.src} alt="Logo" class="size-14 sticky-parallax-image">
         </a>
-        <div class="flex flex-col flex-wrap content-center justify-center text-2xl sticky-parallax-text bg-[#0000008a] backdrop-blur-md font-display ">
+        <div class="flex flex-col flex-wrap content-center justify-center text-2xl sticky-parallax-text bg-[#0000008a] backdrop-blur-md font-display mx-6">
             <PrincipalText content="Desarrollador FullStack" />
             <PrincipalText content="Java - Springboot" />
             <PrincipalText content="ReactJS - Astro" />
@@ -30,7 +33,6 @@ import PrincipalText from "@/components/PrincipalText.astro";
     </section>
 </header>
 <style>
-
 @keyframes sticky-parallax-text-principal {
     to {
         opacity: 0;
@@ -54,8 +56,8 @@ import PrincipalText from "@/components/PrincipalText.astro";
     100% {
         margin-left: 0;
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 1px;
+        left: 12px;
     }
 }
 .sticky-parallax-image{
@@ -71,7 +73,7 @@ import PrincipalText from "@/components/PrincipalText.astro";
     }
     to {
         background-position: 50% 100%;
-        height: 10vh;
+        height: 3.8rem;
     }
 }
 

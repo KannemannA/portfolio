@@ -1,5 +1,7 @@
 ---
 import LoaderWeb from "@/preloader/LoaderWeb.astro";
+import Header from "@/sections/Header.astro";
+import Footer from "@/sections/Footer.astro";
 ---
 
 <!doctype html>
@@ -12,7 +14,9 @@ import LoaderWeb from "@/preloader/LoaderWeb.astro";
   </head>
   <body>
     <LoaderWeb />
+    <Header />
     <slot />
+	  <Footer />
   </body>
 </html>
 
