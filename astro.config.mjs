@@ -3,5 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
 
 export default defineConfig({
-  integrations: [tailwind(), react()]
+  integrations: [tailwind(), react()],
+  base: '/portfolio/',
+  // site: "https://kannemanna.github.io"
 });
