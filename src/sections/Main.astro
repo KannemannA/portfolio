@@ -1,14 +1,20 @@
 ---
+import image from "@/assets/sobremi.webp"
 import ContainerWithLight from "@/components/ContainerWithLight";
-import image from "@/assets/sobremi.jpeg"
+import Project from "@/components/Proyect"
 ---
-<main class="h-screen w-full flex justify-center ">
-    <ContainerWithLight className="w-[30rem] text-white mt-14" client:load>
-        <img src={image.src} alt="Alejo Kannemann - Foto" loading="lazy" class="object-cover h-[20rem] w-[20rem]">
-        <h2>Sobre mi</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis doloribus quos tempore reprehenderit rem sit laudantium. Deleniti magni alias dolore repellat eveniet. Ab vero dolores voluptate voluptatum, ipsa tempore facilis?</p>
+<main class="h-screen w-full flex flex-col items-center text-white">
+    <div id="sobreMi" class="p-10 mb-4"></div>
+    <ContainerWithLight className="flex flex-col sm:flex-row max-w-[80vw] gap-8 justify-between items-center shadow-md shadow-green-500" client:load>
+        <img src={image.src} alt="Alejo Kannemann - Foto" loading="lazy" class="object-cover size-[10rem] sm:order-2 rounded-md">
+        <article class="prose text-slate-300 sm:order-1 p-3 pt-0 sm:pr-0 sm:pt-3">
+            <h2 class="text-white text-center">Sobre mí</h2>
+            <p>¡Hola! Soy Alejo Kannemann, desarrollador FullStack con experiencia destacada en FrontEnd y una pasión especial por el BackEnd. Mi experiencia incluye automatización, CI/CD y despliegue en AWS Cloud.</p>
+            <p>Busco nuevas oportunidades para crecer en la industria IT. Me defino como una persona curiosa y autodidacta, siempre lista para nuevos desafíos y proyectos innovadores.</p>
+            <p>Si buscas sumar a tu equipo alguien apasionado por la tecnología y el aprendizaje continuo, ¡charlemos!</p>
+        </article>
     </ContainerWithLight>
-</main>
-
-<style>
-</style>
+    <div id="proyectos" class="p-10 mb-4"></div>
+    <h2 class="text-3xl font-bold">Proyectos</h2>
+    <Project />
+</main> 

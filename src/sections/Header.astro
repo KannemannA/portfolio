@@ -1,31 +1,26 @@
 ---
-import logo from "@/assets/logo_s-bg.png"
-import bgHeader from "@/assets/bg-header.jpg"
 import '@fontsource/major-mono-display';
 import '@fontsource/bungee-shade';
+import logo from "@/assets/logo_s-bg.png"
+import bgHeader from "@/assets/bg-header.webp"
 import PrincipalText from "@/components/PrincipalText.astro";
 import MenuHamb from "@/components/MenuHamb.tsx"
 ---
-<!-- breakpoints tailwind min-width:
-    lg: 1024px
-    md:768px
-    sm:640px 
-    tip class: max-w-screen-xl  max-width: 1280px-->
 
 <header class="fixed top-0 sticky-parallax-header h-screen w-screen bg-cover text-white z-10" style={`background-image: url(${bgHeader.src});`}>
     <nav class="hidden justify-center w-screen sm:flex">
-        <ul class="animation flex gap-12  backdrop-blur-lg p-2 border-black border rounded-md h-min font-mono">
-            <li><a href="#inicio" class="decrypt scroll-top" data-value="Inicio">Inicio</a></li>
-            <li><a href="#sobreMi" class="decrypt" data-value="Sobre Mi">Sobre Mi</a></li>
+        <ul class="flex gap-12  backdrop-blur-lg p-2 border-black border rounded-md h-min font-mono">
+            <li><a href="#inicio" class="decrypt" data-value="Inicio">Inicio</a></li>
+            <li><a href="#sobreMi" class="decrypt" data-value="Sobre Mí">Sobre Mí</a></li>
             <li><a href="#proyectos" class="decrypt" data-value="Proyectos">Proyectos</a></li>
         </ul>
     </nav>
-    <MenuHamb />
-    <section class="flex items-center justify-center h-4/5 gap-12 flex-col sm:flex-row">
-        <a href="#inicio" class="scroll-top">
+    <MenuHamb client:only/>
+    <section class="flex items-center justify-center h-4/5 gap-20 flex-col sm:flex-row sticky-parallax-container">
+        <a href="#inicio" class="">
             <img src={logo.src} alt="Logo" class="size-14 sticky-parallax-image">
         </a>
-        <div class="flex flex-col flex-wrap content-center justify-center text-2xl sticky-parallax-text bg-[#0000008a] backdrop-blur-md font-display mx-6">
+        <div class="flex flex-col flex-wrap content-center justify-center text-2xl sticky-parallax-text bg-[#0000008a] backdrop-blur-md font-display mx-6 sm:mx-0">
             <PrincipalText content="Desarrollador FullStack" />
             <PrincipalText content="Java - Springboot" />
             <PrincipalText content="ReactJS - Astro" />
@@ -33,6 +28,18 @@ import MenuHamb from "@/components/MenuHamb.tsx"
     </section>
 </header>
 <style>
+
+@keyframes sticky-parallax-container {
+    to {
+        height: 0px;
+    }
+}
+.sticky-parallax-container{
+    animation: sticky-parallax-container linear forwards;
+    animation-timeline: scroll();
+    animation-range: 75vh 80vh;
+}
+
 @keyframes sticky-parallax-text-principal {
     to {
         opacity: 0;
@@ -45,6 +52,7 @@ import MenuHamb from "@/components/MenuHamb.tsx"
     animation-timeline: scroll();
     animation-range: 40vh 70vh;
 }
+
 @keyframes sticky-parallax-move-image {
     0% {
         transform: scale(2.9);
@@ -60,6 +68,7 @@ import MenuHamb from "@/components/MenuHamb.tsx"
         left: 12px;
     }
 }
+
 .sticky-parallax-image{
     animation: sticky-parallax-move-image linear forwards;
     animation-timeline: scroll();
@@ -84,15 +93,5 @@ import MenuHamb from "@/components/MenuHamb.tsx"
     background-position: 50% 50%;
 }
 </style>
-<script>
-    document.querySelectorAll('.scroll-top').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    });
-</script>
-<script src="../animations/decrypted.js" is:inline></script>
+
+<script src="/src/animations/decrypted"></script>

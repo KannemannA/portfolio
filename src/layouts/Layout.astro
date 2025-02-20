@@ -2,6 +2,8 @@
 import LoaderWeb from "@/preloader/LoaderWeb.astro";
 import Header from "@/sections/Header.astro";
 import Footer from "@/sections/Footer.astro";
+import ImageIcon from "@/../public/logo_s-bg-compressed.webp"
+import "@/style/globalStyle.css"
 ---
 
 <!doctype html>
@@ -9,36 +11,15 @@ import Footer from "@/sections/Footer.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/webp" href="/logo_s-bg-compressed.webp" />
+    <link rel="icon" type="image/webp" href={ImageIcon.src} />
     <title>Kannemann Alejo - Portafolio</title>
   </head>
   <body>
     <LoaderWeb />
+    <div id="inicio" class="pt-[100vh]"/>
     <Header />
     <slot />
 	  <Footer />
+    <div id="modal"></div>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    box-sizing: border-box;
-    padding: 0;
-    font-size: clamp(14px, calc(10.4px + 1vw), 24px);
-  }
-  body {
-    padding-top: 100vh;
-  }
-
-  html {
-    min-height: 500vh;
-    background-color: black;
-    background-image: radial-gradient(
-      rgba(255, 255, 255, 0.2) 1px,
-      rgba(0, 9, 29, 1) 1px
-    );
-    background-size: 20px 20px;
-  }
-</style>
