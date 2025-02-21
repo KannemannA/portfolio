@@ -1,4 +1,4 @@
-const letters = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ!@#$%&=?¿*+-ç^" ;
+const letters = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ!@#$%&=?¿*+-ç^";
 
 const intervals = new WeakMap();
 let isActive = new WeakMap();
