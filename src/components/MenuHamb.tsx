@@ -9,12 +9,11 @@ import { useEffect } from "react";
 const MenuHamb = () => {
   const {toggleModal, closeModal, isOpen } = useModal();
 
-  document.body.addEventListener('touchmove', (e) => {
-    e.preventDefault(); // Evita el scroll táctil
-  }, { passive: false });
-
   useEffect(()=>{
     isOpen ? document.querySelector("body")?.classList.add("overflow") : document.querySelector("body")?.classList.remove("overflow")
+    isOpen ? document.body.addEventListener('touchmove', (e) => {
+      e.preventDefault(); // Evita el scroll táctil
+    }, { passive: false }) : null;
   },[isOpen])
 
   return (
