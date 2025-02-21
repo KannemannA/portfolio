@@ -3,16 +3,25 @@ import { createPortal } from "react-dom";
 import ButtonHamburguer from "./ButtonHamburguer";
 import Aurora from "@/animations/Aurora";
 import SplashCursor from "@/animations/SplashCursor";
+import { useEffect } from "react";
 
 
 const MenuHamb = () => {
   const {toggleModal, closeModal, isOpen } = useModal();
 
+  document.body.addEventListener('touchmove', (e) => {
+    e.preventDefault(); // Evita el scroll táctil
+  }, { passive: false });
+
+  useEffect(()=>{
+    isOpen ? document.querySelector("body")?.classList.add("overflow") : document.querySelector("body")?.classList.remove("overflow")
+  },[isOpen])
+
   return (
     <nav className="sm:hidden flex justify-end">
       <ButtonHamburguer className="backdrop-blur-lg p-2 border-black border rounded-md mr-5 mt-2 box-content" useModal={{toggleModal, isOpen}} />
       {createPortal(
-        <div className={`${isOpen ? "flex" : "hidden"} fixed inset-0 z-10 text-white justify-center items-center`}>
+        <div className={`${isOpen ? "flex" : "hidden"} fixed inset-0 z-10 text-white justify-center items-center overflow-hidden`}>
           <Aurora speed={0.7} className="fixed inset-0"/> 
           <SplashCursor className="z-[11] size-full" />
           <ButtonHamburguer className="p-2 border-black backdrop-contrast-200 pr-1 border rounded-md box-content z-[12] fixed top-[0.65rem] right-[0.65rem]" useModal={{toggleModal, isOpen}} />
