@@ -10,10 +10,7 @@ const MenuHamb = () => {
   const {toggleModal, closeModal, isOpen } = useModal();
 
   useEffect(()=>{
-    isOpen ? document.querySelector("body")?.classList.add("overflow") : document.querySelector("body")?.classList.remove("overflow")
-    isOpen ? document.body.addEventListener('touchmove', (e) => {
-      e.preventDefault(); // Evita el scroll táctil
-    }, { passive: false }) : null;
+    isOpen ? document.body.classList.add("overflow") : document.body.classList.remove("overflow")
   },[isOpen])
 
   return (

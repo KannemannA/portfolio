@@ -30,9 +30,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # Step 3: Install dependencies (production only)
       - name: Install dependencies
-        run: npm install --production
+        run: npm install
 
       # Step 4: Build the Astro project
       - name: Install, build, and upload your site
