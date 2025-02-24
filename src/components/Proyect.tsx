@@ -10,7 +10,6 @@ const ImageSection = () => {
     'https://th.bing.com/th/id/OIP.BYoltjhAZ_4JXqBWd0AlXQHaFL?w=233&h=180&c=7&r=0&o=5&pid=1.7',
   ];
 
-  // Configurar Intersection Observer
   useEffect(() => {
     observer.current = new IntersectionObserver(
       (entries) => {
@@ -28,7 +27,6 @@ const ImageSection = () => {
       }
     );
 
-    // Observar todas las secciones
     sectionsRef.current.forEach((section) => {
       if (section) observer.current?.observe(section);
     });
@@ -38,16 +36,14 @@ const ImageSection = () => {
     };
   }, []);
 
-  // Callback para las refs de las secciones
   const setSectionRef = (index: number) => (el: HTMLElement | null) => {
     sectionsRef.current[index] = el;
   };
 
   return (
     <div className="relative flex">
-      {/* Columna de imagen (sticky) */}
-      <div className="sticky top-0 h-screen w-[48vw] ml-[1vw]">
-        <div className="p-4 h-full">
+      <div className="sticky top-0 h-screen w-[48vw] ml-[1vw] flex justify-center items-center">
+        <div className="">
           <img
             src={images[activeIndex]}
             alt="Descripción"
@@ -56,7 +52,6 @@ const ImageSection = () => {
         </div>
       </div>
 
-      {/* Columna de descripciones (scroll normal) */}
       <div className="w-[48vw]">
         {[1, 2].map((item, index) => (
           <section

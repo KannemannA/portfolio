@@ -94,7 +94,7 @@ const MenuHamb: React.FC = () => {
           <Aurora speed={0.7} className="fixed inset-0" />
           <SplashCursor className="z-[11] size-full" />
           <ButtonHamburguer
-            className="p-2 border-black backdrop-contrast-200 pr-1 border rounded-md box-content z-[12] fixed top-[0.65rem] right-[0.65rem]"
+            className="p-3 pr-1 rounded-full box-content z-[12] fixed top-[0.65rem] right-[0.65rem]"
             useModal={{ toggleModal, isOpen }}
           />
           <ul className="flex flex-col gap-12 border-black border rounded-md font-mono z-[12] backdrop-blur-3xl p-6">
