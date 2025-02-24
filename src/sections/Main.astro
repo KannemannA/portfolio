@@ -3,7 +3,7 @@ import image from "@/assets/sobremi.webp"
 import ContainerWithLight from "@/components/ContainerWithLight";
 import Project from "@/components/Proyect"
 ---
-<main class="h-screen w-full flex flex-col items-center text-white">
+<main class="flex flex-col items-center text-white">
     <div id="sobreMi" class="p-10 mb-4"></div>
     <ContainerWithLight className="flex flex-col sm:flex-row max-w-[80vw] gap-8 justify-between items-center shadow-md shadow-green-500" client:load>
         <img src={image.src} alt="Alejo Kannemann - Foto" loading="lazy" class="object-cover size-[10rem] sm:order-2 rounded-md">
@@ -16,5 +16,5 @@ import Project from "@/components/Proyect"
     </ContainerWithLight>
     <div id="proyectos" class="p-10 mb-4"></div>
     <h2 class="text-3xl font-bold">Proyectos</h2>
-    <Project />
+    <Project client:only/>
 </main> 
