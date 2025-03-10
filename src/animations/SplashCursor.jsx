@@ -1,8 +1,3 @@
-/*
-	jsrepo 1.24.1
-	Installed from github/davidhdev/react-bits
-	9-1-2025
-*/
 
 "use client";
 import { useEffect, useRef } from "react";
@@ -1264,3 +1259,5 @@ function SplashCursor({
 }
 
 export default SplashCursor;
+
+// uso en astro <SplashCursor className="z-[11] size-full" />

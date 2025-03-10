@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  --pause-animation-prin-text: running;
+}
+
 html,
   body {
     margin: 0;
@@ -10,16 +14,16 @@ html,
     font-size: clamp(14px, calc(10.4px + 1vw), 24px);
   }
 
-  html {
-    scroll-behavior: smooth;
-    background-color: black;
-    background-image: radial-gradient(
-      rgba(255, 255, 255, 0.2) 1px,
-      rgba(0, 9, 29, 1) 1px
-    );
-    background-size: 20px 20px;
-  }
+html {
+  scroll-behavior: smooth;
+  background-color: black;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.2) 1px,
+    rgba(0, 9, 29, 1) 1px
+  );
+  background-size: 20px 20px;
+}
 
-  .overflow {
-    overflow: hidden !important;
-  }
+.overflow {
+  overflow: hidden !important;
+}

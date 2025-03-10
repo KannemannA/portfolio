@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import imageP1 from "@/assets/P1_InicioDesktop.webp"
+import imageP2 from "@/assets/P1MenuMobile.webp"
 
 const ImageSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -6,8 +8,8 @@ const ImageSection = () => {
   const observer = useRef<IntersectionObserver | null>(null);
 
   const images = [
-    'https://th.bing.com/th/id/OIP.ZTFsNJtONLlGLzOo1LO70wHaHa?w=176&h=180&c=7&r=0&o=5&pid=1.7',
-    'https://th.bing.com/th/id/OIP.BYoltjhAZ_4JXqBWd0AlXQHaFL?w=233&h=180&c=7&r=0&o=5&pid=1.7',
+    imageP1.src,
+    imageP2.src,
   ];
 
   useEffect(() => {

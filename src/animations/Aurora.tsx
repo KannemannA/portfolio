@@ -142,7 +142,6 @@ export default function Aurora(props: AuroraProps) {
     const gl = renderer.gl;
     gl.clearColor(1, 1, 1, 1);
 
-    // Declare program variable so it's available in the resize callback.
     let program: Program;
 
     function resize() {
@@ -156,9 +155,7 @@ export default function Aurora(props: AuroraProps) {
     }
     window.addEventListener("resize", resize);
 
-    // Create a full-screen triangle.
     const geometry = new Triangle(gl);
-    // Remove the UV attribute since we now compute UVs in the fragment shader.
     if (geometry.attributes.uv) {
       delete geometry.attributes.uv;
     }
@@ -168,7 +165,6 @@ export default function Aurora(props: AuroraProps) {
       return [c.r, c.g, c.b] as [number, number, number];
     });
 
-    // Initialize the shader program with the new uResolution uniform.
     program = new Program(gl, {
       vertex: VERT,
       fragment: FRAG,

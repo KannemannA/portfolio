@@ -5,6 +5,7 @@ import logo from "@/assets/logo_s-bg.png"
 import bgHeader from "@/assets/bg-header.webp"
 import PrincipalText from "@/components/PrincipalText.astro";
 import MenuHamb from "@/components/MenuHamb.tsx"
+import TestWorker from '@/components/TestWorker';
 ---
 
 <header class="fixed top-0 sticky-parallax-header h-screen w-screen bg-cover text-white z-10" style={`background-image: url(${bgHeader.src});`}>
@@ -16,7 +17,7 @@ import MenuHamb from "@/components/MenuHamb.tsx"
         </ul>
     </nav>
     <MenuHamb client:only/>
-    <section class="flex items-center justify-center h-4/5 gap-20 flex-col sm:flex-row sticky-parallax-container">
+    <section class="flex items-center justify-center h-4/5 gap-20 flex-col sm:flex-row">
         <a href="#inicio" class="">
             <img src={logo.src} alt="Logo" class="size-14 sticky-parallax-image">
         </a>
@@ -25,21 +26,11 @@ import MenuHamb from "@/components/MenuHamb.tsx"
             <PrincipalText content="Java - Springboot" />
             <PrincipalText content="ReactJS - Astro" />
         </div>
+        <!-- <TestWorker client:only /> -->
     </section>
 </header>
+
 <style>
-
-@keyframes sticky-parallax-container {
-    to {
-        height: 0px;
-    }
-}
-.sticky-parallax-container{
-    animation: sticky-parallax-container linear forwards;
-    animation-timeline: scroll();
-    animation-range: 75vh 80vh;
-}
-
 @keyframes sticky-parallax-text-principal {
     to {
         opacity: 0;
@@ -48,11 +39,11 @@ import MenuHamb from "@/components/MenuHamb.tsx"
 }
 
 .sticky-parallax-text {
-    animation: sticky-parallax-text-principal linear forwards;
+    animation: 
+    sticky-parallax-text-principal linear forwards;
     animation-timeline: scroll();
     animation-range: 40vh 70vh;
 }
-
 @keyframes sticky-parallax-move-image {
     0% {
         transform: scale(2.9);
@@ -90,8 +81,8 @@ import MenuHamb from "@/components/MenuHamb.tsx"
     animation: sticky-parallax-header-move-and-size linear forwards;
     animation-timeline: scroll();
     animation-range: 0vh 90vh;
-    background-position: 50% 50%;
 }
+
 </style>
 
 <script src="/src/animations/decrypted"></script>

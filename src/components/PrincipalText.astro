@@ -2,45 +2,60 @@
 interface Props {
     content: string;
 }
-const {content}=Astro.props
-const words = content.split(" ")
+const {content} = Astro.props;
+const words = content.split(/\s+/g);
+let globalIndex = 0;
 ---
 <div class="text-container">
-    {
-        words.map((palabra) =>
-            <div class="inline-flex flex-wrap">
-                {palabra.split("").map((letra)=>
-                    <span class="inline-block">
-                        {letra}
+    {words.map((word, i) => (
+        <>
+            <span class="word">
+                {[...word].map((char) => (
+                    <span 
+                        class="letter"
+                        style={`--index: ${globalIndex++}`}
+                    >
+                        {char}
                     </span>
-                )}
-            </div>
-            <div class="inline"> </div>
-        )
-    }
+                ))}
+            </span>
+            {i !== words.length - 1 && <span class="space"> </span>}
+        </>
+    ))}
 </div>
 
 <style>
-    .text-container span {
-        animation: colorChange 4s infinite;
-        animation-delay: calc(0.5s * var(--index));
-        &:hover{
-            color: red !important;
-        }
+    .word {
+        display: inline-flex;
+        flex-wrap: wrap;
     }
-
+    .space {
+        display: inline;
+    }
+    .letter {
+        display: inline-block;
+        will-change: color;
+        animation: colorChange 4s infinite calc(0.5s * var(--index)) var(--pause-animation-prin-text);
+    }
+    .letter:hover {
+        color: red !important;
+    }
     @keyframes colorChange {
         0%, 100% { color: rgb(59, 130, 246); }
         25% { color: rgb(168, 85, 247); }
         50% { color: rgb(68, 220, 38); }
         75% { color: rgb(234, 179, 8); }
     }
-</style>
 
-<script>
-    document.querySelectorAll('.text-container').forEach(container => {
-        container.querySelectorAll('span').forEach((span, index) => {
-            span.style.setProperty('--index', index.toString());
-        });
-    });
-</script>
+    @keyframes pause-animation-state {
+        to { 
+            --pause-animation-prin-text: paused; 
+        }
+    }
+
+    .text-container{
+        animation: pause-animation-state 1ms step-end forwards;
+        animation-timeline: scroll();
+        animation-range: 40vh 70vh;
+    }
+</style>
