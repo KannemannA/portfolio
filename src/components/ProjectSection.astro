@@ -1,0 +1,44 @@
+---
+import Project from "@/components/Project.astro";
+import image from "@/assets/P1MenuMobile.webp"
+
+function getImage(imageName: string): string {
+	const directory = image.src.replace(/\/[^/]*$/, '/');
+    return directory + imageName;
+}
+const projects = [
+	{title: "hola1", description: "lorem1", image: image.src, imageDescription: "Lorem"},
+	{title: "hola2", description: "lorem2", image: getImage("P1MobileVersion.webp"), imageDescription: "Lorem"},
+	{title: "hola3", description: "lorem3", image: getImage("P1_InicioDesktop.webp"), imageDescription: "Lorem"},
+	{title: "hola4", description: "lorem4", image: "https://codyhouse.co/demo-tutorials/stacking-cards/assets/img/img-3.jpg", imageDescription: "Lorem"}
+]
+
+const totalCards = projects.length;
+---
+
+<section class="mt-8 mb-20">
+	<ul class="cards" style={{ '--total-cards': totalCards }}>
+		{projects.map((project, index) => {
+			return (
+				<Project 
+					brightness={index === totalCards - 1 ? "100%" : undefined} 
+					id={index + 1} 
+					{...project} 
+				/>
+			);
+		})}
+	</ul>
+</section>
+
+<style>
+.cards {
+	--card-height: calc(100% / var(--total-cards));
+	display: flex;
+	flex-direction: column;
+	gap: 30px 0;
+	width: 100%;
+	max-width: 900px;
+	margin: 0 auto;
+	view-timeline-name: --cardsContainer;
+}
+</style>

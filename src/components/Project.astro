@@ -1,0 +1,118 @@
+---
+interface Props {
+    id: number,
+    title: string,
+    description: string,
+    image: string,
+    imageDescription: string
+    brightness?: string
+}
+const {id, title, description, image, imageDescription, brightness} = Astro.props;
+---
+<li class="card" style={{'--index': id, "--target-brightness": brightness}}>
+    <div class="card__content">
+        <div class="card__text">
+            <h2 class="card__title">{title}</h2>
+            <p class="card__description">{description}</p>
+        </div>
+        <figure class="card__image-container">
+            <img class="card__image" src={image} alt={imageDescription}>
+        </figure>
+    </div>
+</li>
+
+<style>
+.card {
+    --target-brightness: 50%;
+    --top: calc((var(--index) * 30px) + 4rem);
+    transform-origin: top center;
+    position: sticky;
+    top: var(--top);
+    will-change: transform;
+    animation: stacking linear forwards;
+    animation-timeline: --cardsContainer;
+    animation-range-start: exit-crossing
+        calc(var(--card-height) * (var(--index) - 1));
+    animation-range-end: exit-crossing
+        calc((var(--card-height) * var(--index)) - var(--top));
+}
+
+@keyframes stacking {
+    to {
+        transform: scale(calc(1 - 0.1 * (var(--total-cards) - var(--index))));
+        filter: brightness(var(--target-brightness));
+    }
+}
+
+.card__content {
+    background: white;
+    border-radius: 14px;
+    height: 70vh;
+    display: flex;
+    overflow: clip;
+    box-shadow: 0 25px 50px -12px hsla(265.3, 20%, 10%, 35%);
+}
+
+.card__image-container {
+    display: flex;
+    width: 40%;
+    flex-shrink: 0;
+    box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
+    background: rgb(255, 255, 255);
+    color: rgb(10, 5, 7);
+    border-radius: 1em;
+}
+
+.card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1;
+}
+
+.card__text {
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card__title {
+    padding: 0;
+    margin: 0;
+    font-size: 60px;
+    font-weight: 600;
+    color: #16263a;
+}
+
+.card__description {
+    line-height: 1.4;
+    font-size: 24px;
+    color: #16263a;
+}
+
+@media (max-width: 600px) {
+    .card__content {
+        flex-direction: column;
+    }
+
+    .card__image-container {
+        width: 100%;
+    }
+
+    .card__image {
+        aspect-ratio: 16 / 9;
+    }
+
+    .card__title {
+        font-size: 32px;
+    }
+
+    .card__description {
+        font-size: 16px;
+    }
+
+    .card__text {
+        padding: 30px 20px;
+    }
+}
+</style>

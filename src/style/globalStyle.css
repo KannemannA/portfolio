@@ -12,6 +12,7 @@ html,
     box-sizing: border-box;
     padding: 0;
     font-size: clamp(14px, calc(10.4px + 1vw), 24px);
+    scrollbar-color: red #14274378;
   }
 
 html {

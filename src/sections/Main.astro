@@ -1,7 +1,7 @@
 ---
 import image from "@/assets/sobremi.webp"
 import ContainerWithLight from "@/components/ContainerWithLight";
-import Project from "@/components/Proyect"
+import ProjectSection from "@/components/ProjectSection.astro"
 ---
 <main class="flex flex-col items-center text-white">
     <div id="sobreMi" class="p-10 mb-4"></div>
@@ -16,5 +16,5 @@ import Project from "@/components/Proyect"
     </ContainerWithLight>
     <div id="proyectos" class="p-10 mb-4"></div>
     <h2 class="text-3xl font-bold">Proyectos</h2>
-    <Project client:only/>
+    <ProjectSection/>
 </main> 
