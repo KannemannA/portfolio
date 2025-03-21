@@ -1,23 +1,23 @@
 ---
 import Project from "@/components/Project.astro";
-import image from "@/assets/P1MenuMobile.webp"
 
-function getImage(imageName: string): string {
-	const directory = image.src.replace(/\/[^/]*$/, '/');
-    return directory + imageName;
-}
+import p1i1 from "@/assets/P1_InicioDesktop.webp"
+import p1i2 from "@/assets/P1_MobileVersion.webp"
+import p1i3 from "@/assets/P1_MenuMobile.webp"
+import p1i4 from "@/assets/P1_PreloadDesktop.webp"
+
+
 const projects = [
-	{title: "hola1", description: "lorem1", image: image.src, imageDescription: "Lorem"},
-	{title: "hola2", description: "lorem2", image: getImage("P1MobileVersion.webp"), imageDescription: "Lorem"},
-	{title: "hola3", description: "lorem3", image: getImage("P1_InicioDesktop.webp"), imageDescription: "Lorem"},
-	{title: "hola4", description: "lorem4", image: "https://codyhouse.co/demo-tutorials/stacking-cards/assets/img/img-3.jpg", imageDescription: "Lorem"}
+	{title: "hola2", description: "lorem2", image: [], imageDescription: [""]},
+	{title: "Portafolio", description: "Es un portafolio construido con Astro, con integraciones en React y estilizado con TailwindCSS. Esta página no solo muestra proyectos y habilidades, sino que también está optimizada para un rendimiento excepcional, accesibilidad y una experiencia fluida para el visitante.", image: [p1i1.src, p1i2.src, p1i3.src, p1i4.src], imageDescription: ["Imagen - Página de inicio para ordenadores", "Imagen - Versión móvil de la web", "Imagen - Versión móvil del menú de navegación", "Imagen - Página de carga para ordenadores"]}
 ]
 
 const totalCards = projects.length;
 ---
 
 <section class="mt-8 mb-20">
-	<ul class="cards" style={{ '--total-cards': totalCards }}>
+	<ul class="flex flex-col max-w-[1100px] cardSection" 
+	style={{ "--total-cards": totalCards}}>
 		{projects.map((project, index) => {
 			return (
 				<Project 
@@ -31,14 +31,8 @@ const totalCards = projects.length;
 </section>
 
 <style>
-.cards {
-	--card-height: calc(100% / var(--total-cards));
-	display: flex;
-	flex-direction: column;
-	gap: 30px 0;
-	width: 100%;
-	max-width: 900px;
-	margin: 0 auto;
-	view-timeline-name: --cardsContainer;
+.cardSection {
+	--card-height: calc(100% / var(--total-cards)); 
+	view-timeline-name: --cardsContainer; 
 }
 </style>

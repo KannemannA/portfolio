@@ -9,10 +9,15 @@ export default {
 				shine: {
 					"0%": { "background-position": "100%" },
 					"100%": { "background-position": "-100%" },
+				},
+				"background-shine": {
+					"from": { "backgroundPosition": "0 0" },
+    				"to": { "backgroundPosition": "-200% 0" }
 				}
 			},
 			animation: {
 				shine: "shine 5s linear infinite",
+				"background-shine": "background-shine 2s linear infinite"
 			},
 			fontFamily: {
 				mono: ['Major Mono Display', ...defaultTheme.fontFamily.mono],
