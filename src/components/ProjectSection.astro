@@ -2,14 +2,18 @@
 import Project from "@/components/Project.astro";
 
 import p1i1 from "@/assets/P1_InicioDesktop.webp"
-import p1i2 from "@/assets/P1_MobileVersion.webp"
+import p1i2 from "@/assets/P1_InicioMobile.webp"
 import p1i3 from "@/assets/P1_MenuMobile.webp"
 import p1i4 from "@/assets/P1_PreloadDesktop.webp"
+import p2i1 from "@/assets/P2_InicioDesktop.webp"
+import p2i2 from "@/assets/P2_SearchDesktop.webp"
+import p2i3 from "@/assets/P2_InicioMobile.webp"
+import p2i4 from "@/assets/P2_SearchMobile.webp"
 
 
 const projects = [
-	{title: "hola2", description: "lorem2", image: [], imageDescription: [""]},
-	{title: "Portafolio", description: "Es un portafolio construido con Astro, con integraciones en React y estilizado con TailwindCSS. Esta página no solo muestra proyectos y habilidades, sino que también está optimizada para un rendimiento excepcional, accesibilidad y una experiencia fluida para el visitante.", image: [p1i1.src, p1i2.src, p1i3.src, p1i4.src], imageDescription: ["Imagen - Página de inicio para ordenadores", "Imagen - Versión móvil de la web", "Imagen - Versión móvil del menú de navegación", "Imagen - Página de carga para ordenadores"]}
+	{title: "Juzgado de Faltas", description: "Es una extensión web de un <a href='https://www.iguazu.gob.ar/' class='no-underline text-blue-900' target='_blank'>sitio municipal</a> hecho en WordPress, está desarrollada con Astro, integrando React y estilizada con TailwindCSS. Su objetivo es ampliar la funcionalidad del portal principal, ofreciendo una experiencia más rápida, moderna y optimizada para los ciudadanos.", image: [p2i1.src, p2i2.src, p2i3.src, p2i4.src], imageDescription: ["Imagen - Página de inicio para ordenadores", "Imagen - Buscador web para ordenadores", "Imagen - Versión móvil de la web", "Imagen - Buscador web para móviles"], href: ["https://juzgadodefaltasiguazu.online/","https://github.com/KannemannA/mun"], stack: ["front", "host"], icons: ["astro", "react", "tailwind", "host"], nameServer: "DonWeb"},
+	{title: "Portafolio", description: "Es un portafolio construido con Astro, con integraciones en React y estilizado con TailwindCSS. Esta página no solo muestra proyectos y habilidades, sino que también está optimizada para un rendimiento excepcional, accesibilidad y una experiencia fluida para el visitante.", image: [p1i1.src, p1i2.src, p1i3.src, p1i4.src], imageDescription: ["Imagen - Página de inicio para ordenadores", "Imagen - Versión móvil de la web", "Imagen - Versión móvil del menú de navegación", "Imagen - Página de carga para ordenadores"], href: [, "https://github.com/KannemannA/portfolio"], target: "_self", stack: ["front", "host"], icons:["astro", "react", "tailwind", "githubPages"]}
 ]
 
 const totalCards = projects.length;

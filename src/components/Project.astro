@@ -1,6 +1,7 @@
 ---
 import ButtonProject from '@/components/ButtonProject.astro';
 import DynamicIcon from "@/components/DynamicIcon.astro"
+import { undefined } from 'astro:schema';
 
 interface Props {
     id: number,
@@ -8,9 +9,15 @@ interface Props {
     description: string,
     image: Array<string>,
     imageDescription: Array<string>,
-    brightness?: string
+    href: Array<string | undefined>,
+    target?: string,
+    brightness?: string,
+    stack: Array<string>,
+    icons: Array<string>,
+    nameServer?: string
 }
-const {id, title, description, image, imageDescription, brightness} = Astro.props;
+const {id, title, description, image, imageDescription, brightness, href, target, stack, icons, nameServer} = Astro.props;
+const tecnologias= ["front", "back", "host"]
 ---
 <!-- overflow-clip -->
 <li class="card will-change-transform overflow-auto sticky origin-[top center] mx-10 mb-10 bg-slate-200 rounded-[14px] h-[70vh] flex flex-col sm:flex-row justify-between p-6 gap-6" 
@@ -18,17 +25,29 @@ style={{'--index': id,
 "--target-brightness": brightness || "50%"}}>
         <aside class="flex flex-col grow prose">
             <h2 class="font-semibold text-[#16263a] text-center">{title}</h2>
-            <p class="text-[#16263a] text-sm">{description}</p>
-            <div>
-                <ButtonProject className='mr-2' target='_self'>Ir al sitio</ButtonProject>
-                <ButtonProject>Código fuente</ButtonProject>
-                <h6>tecnologias:</h6>
-                <span>Front-End</span>
-                <span>Back-End</span>
-                <DynamicIcon iconName="astro" color='black' size='30' />
-                <DynamicIcon iconName="react" color='#5d6df3' size='30' />
-                <DynamicIcon iconName="tailwind" color='#00d2ff' size='30' />
-                <DynamicIcon iconName="java" color='#00d2ff' size='30' />
+            <p class="text-[#16263a] text-xs" set:html={description}></p>
+            <div class="flex gap-4 justify-center mb-6">
+                <ButtonProject href={href[0]} className='mr-2' target={target}>Ir al sitio</ButtonProject>
+                <ButtonProject href={href[1]}>Código fuente</ButtonProject>
+            </div>
+            <div class="flex gap-4 mb-3">
+                <h6 class="text-sm">Tecnologías:</h6>
+                {stack.includes("front") && <span class="rounded-xl border bg-red-200 border-red-500 text-xs text-red-900 px-1 mt-1">Front-End</span>}
+                {stack.includes("back") && <span class="rounded-xl bg-green-200 border border-green-500 text-xs text-green-900 px-1 mt-1">Back-End</span>}
+                {stack.includes("host") && <span class="rounded-xl bg-blue-200 border border-blue-500 text-xs text-blue-900 px-1 mt-1">Hosting</span>}
+            </div>
+            <div class="flex gap-3">
+                {icons.map((icon) => {
+                    if (icon === "astro") return <DynamicIcon iconName="astro" color='bg-red-200' size='30' />;
+                    if (icon === "react") return <DynamicIcon iconName="react" color='bg-red-200' size='30' />;
+                    if (icon === "tailwind") return <DynamicIcon iconName="tailwind" color='bg-red-200' size='30' />;
+                    if (icon === "java") return <DynamicIcon iconName="java" color='bg-green-200' size='30' />;
+                    if (icon === "spring") return <DynamicIcon iconName="spring" color='bg-green-200' size='30' />;
+                    if (icon === "githubPages") return <DynamicIcon iconName="githubPages" color='bg-blue-200' size='30' />;
+                    if (icon === "host") return <DynamicIcon iconName='host' color='bg-blue-200'size='30' nameServer={nameServer}/>;
+                    return null;
+                })}
+                
             </div>
         </aside>
         <aside class="w-full h-[50vh] sm:w-2/5 flex-shrink-0 flex flex-col gap-4">
