@@ -20,7 +20,7 @@ const totalCards = projects.length;
 ---
 
 <section class="mt-8 mb-20">
-	<ul class="flex flex-col max-w-[1100px] cardSection" 
+	<ul class="cardSection" 
 	style={{ "--total-cards": totalCards}}>
 		{projects.map((project, index) => {
 			return (
@@ -37,6 +37,10 @@ const totalCards = projects.length;
 <style>
 .cardSection {
 	--card-height: calc(100% / var(--total-cards)); 
-	view-timeline-name: --cardsContainer; 
+	view-timeline-name: --cardsContainer;
+	display: flex;
+    flex-direction: column;
+	width: 100%;
+    max-width: 1100px;
 }
 </style>
