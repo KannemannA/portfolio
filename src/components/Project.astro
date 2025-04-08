@@ -19,13 +19,13 @@ const {id, title, description, image, imageDescription, brightness, href, target
 const tecnologias= ["front", "back", "host"]
 ---
 
-<li class="card will-change-transform overflow-clip  mx-10 mb-10 bg-neutral-200 rounded-[14px] h-[70vh] flex flex-col sm:flex-row justify-between p-6 gap-6 min-w-[300px]" 
+<li class="card will-change-transform overflow-clip  mx-10 mb-10 bg-neutral-200 rounded-[14px] h-[70vh] flex flex-col sm:flex-row justify-between p-6 gap-3 sm:gap-6 min-w-[300px]" 
 style={{'--index': id, 
 "--target-brightness": brightness || "50%"}}>
         <aside class="flex flex-col grow prose">
             <h2 class="font-semibold text-[#16263a] text-center">{title}</h2>
-            <p class="text-[#16263a] text-sm" set:html={description}></p>
-            <div class="flex gap-4 justify-center mb-6">
+            <p class="text-[#16263a] text-sm max-h-[120px] sm:max-h-max" set:html={description}></p>
+            <div class="flex gap-4 justify-center mb-4 sm:mb-6">
                 <ButtonProject href={href[0]} className='mr-2' target={target}>Ir al sitio</ButtonProject>
                 <ButtonProject href={href[1]}>Código fuente</ButtonProject>
             </div>

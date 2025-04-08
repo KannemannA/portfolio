@@ -1,8 +1,11 @@
 ---
 import MailIcon from "@/assets/MailIcon.astro"
 import LinkedInIcon from "@/assets/LinkedInIcon.astro"
+import ContactImage from "@/assets/ContactMe.webp"
 ---
-<div class="size-[50px] fixed bottom-0 right-0 z-40">
-    <button><MailIcon /></button>
-    <button><LinkedInIcon /></button>
+<div class="fixed bottom-3 right-3 z-40 border border-black p-2 rounded-lg flex flex-col gap-2 text-white bg-cover" style={`background-image: url(${ContactImage.src});`}>
+    <a href="mailto:alejokannemann@gmail.com?subject=Quiero%20contactarte" target="_blank">
+        <MailIcon size="24" color="black" className="bg-white rounded-xl" />
+    </a>
+    <a href="https://www.linkedin.com/in/alejo-kannemann/" target="_blank"><LinkedInIcon size="24" color="black" className="bg-white rounded-xl" /></a>
 </div>
