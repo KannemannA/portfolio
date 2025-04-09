@@ -43,13 +43,15 @@ const Hyperspeed = ({ effectOptions = {
   const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
-    // Configurar Intersection Observer
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 } // Ajusta este valor según necesites
+      { 
+        threshold: 0.1,
+        rootMargin: "0px 0px 100px 0px" 
+      }
     );
     
     if (hyperspeed.current) {
@@ -366,8 +368,12 @@ const Hyperspeed = ({ effectOptions = {
           antialias: false,
           alpha: true
         });
+        
+        const isMobile = window.innerWidth < 768;
+        const pixelRatio = isMobile ? 1 : window.devicePixelRatio;
+        
         this.renderer.setSize(container.offsetWidth, container.offsetHeight, false);
-        this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.setPixelRatio(pixelRatio);
         this.composer = new EffectComposer(this.renderer);
         container.append(this.renderer.domElement);
   
@@ -432,8 +438,11 @@ const Hyperspeed = ({ effectOptions = {
       onWindowResize() {
         const width = this.container.offsetWidth;
         const height = this.container.offsetHeight;
-  
-        this.renderer.setSize(width, height);
+        
+        this.renderer.domElement.style.width = width + 'px';
+        this.renderer.domElement.style.height = height + 'px';
+        
+        this.renderer.setSize(width, height, false);
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
         this.composer.setSize(width, height);
@@ -523,18 +532,12 @@ const Hyperspeed = ({ effectOptions = {
         if (this.options.onSpeedUp) this.options.onSpeedUp(ev);
         this.fovTarget = this.options.fovSpeedUp;
         this.speedUpTarget = this.options.speedUp;
-        if (ev.type.startsWith('touch')) {
-          ev.preventDefault();
-        }
       }
   
       onMouseUp(ev) {
         if (this.options.onSlowDown) this.options.onSlowDown(ev);
         this.fovTarget = this.options.fov;
         this.speedUpTarget = 0;
-        if (ev.type.startsWith('touch')) {
-          ev.preventDefault();
-        }
       }
   
       update(delta) {
@@ -1112,9 +1115,13 @@ const Hyperspeed = ({ effectOptions = {
       const canvas = renderer.domElement;
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
+      
       const needResize = canvas.width !== width || canvas.height !== height;
       if (needResize) {
         setSize(width, height, false);
+        
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
       }
       return needResize;
     }
@@ -1158,7 +1165,7 @@ const Hyperspeed = ({ effectOptions = {
   }, [isVisible]);
 
   return (
-    <div id="lights" className="w-full h-full bg-black" ref={hyperspeed}></div>
+    <div id="lights" className="bg-black w-full h-full max-w-full max-h-full overflow-hidden" ref={hyperspeed}></div>
   );
 }
 
