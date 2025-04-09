@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef} from "react";
 import * as THREE from 'three';
 import { BloomEffect, EffectComposer, EffectPass, RenderPass, SMAAEffect, SMAAPreset } from 'postprocessing';
 
@@ -40,31 +40,8 @@ const Hyperspeed = ({ effectOptions = {
   }
 } }) => {
   const hyperspeed = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
-    // Configurar Intersection Observer
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 } // Ajusta este valor según necesites
-    );
-    
-    if (hyperspeed.current) {
-      observer.observe(hyperspeed.current);
-    }
-    
-    return () => {
-      if (hyperspeed.current) {
-        observer.unobserve(hyperspeed.current);
-      }
-    };
-  }, []);
-  
-  useEffect(() => {
-    if (!isVisible) return;
     
     const mountainUniforms = {
       uFreq: { value: new THREE.Vector3(3, 6, 10) },
@@ -1143,7 +1120,7 @@ const Hyperspeed = ({ effectOptions = {
         myApp.container.removeEventListener("mouseout", myApp.onMouseUp);
       }
     };
-  }, [isVisible]);
+  }, []);
 
   return (
     <div id="lights" className="w-full h-full bg-black" ref={hyperspeed}></div>
