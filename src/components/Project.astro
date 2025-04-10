@@ -51,7 +51,7 @@ style={{'--index': id,
         </aside>
         <aside class="w-full h-[50vh] sm:w-2/5 flex-shrink-0 flex sm:flex-col gap-4">
             <figure class="m-0 h-1/2 sm:h-[70%] rounded-[1em] overflow-hidden" style={{"box-shadow": "0 0.2em 1em rgba(0, 0, 0, 0.1)"}}>
-                <img src={image[0]} alt={imageDescription[0]} class="size-full object-cover" id={`mainImage - ${id}`}
+                <img src={image[0]} alt={imageDescription[0]} loading="lazy" class="size-full object-cover" id={`mainImage - ${id}`}
                 >
             </figure>
             <div class="grid grid-rows-4 sm:grid-cols-4 sm:grid-rows-1 gap-2 h-[50%] sm:h-[30%] w-[20%] sm:w-auto">
@@ -65,6 +65,7 @@ style={{'--index': id,
                             src={img} 
                             alt={imageDescription[index]} 
                             class="thumbnail__img"
+                            loading="lazy"
                         />
                     </button>
                 ))}

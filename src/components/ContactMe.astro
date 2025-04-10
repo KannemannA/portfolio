@@ -4,8 +4,23 @@ import LinkedInIcon from "@/assets/LinkedInIcon.astro"
 import ContactImage from "@/assets/ContactMe.webp"
 ---
 <div class="fixed bottom-3 right-3 z-40 border border-black p-2 rounded-lg flex flex-col gap-2 text-white bg-cover" style={`background-image: url(${ContactImage.src});`}>
-    <a href="mailto:alejokannemann@gmail.com?subject=Quiero%20contactarte" target="_blank">
-        <MailIcon size="24" color="black" className="bg-sky-700 rounded-xl" />
-    </a>
-    <a href="https://www.linkedin.com/in/alejo-kannemann/" target="_blank"><LinkedInIcon size="24" color="black" className="bg-sky-700 rounded-xl" /></a>
+    <a 
+    href="mailto:alejokannemann@gmail.com?subject=Quiero%20contactarte" 
+    target="_blank"
+    aria-label="Enviar correo electrónico"
+    rel="noopener noreferrer"
+>
+    <MailIcon size="24" color="black" className="bg-sky-700 rounded-xl" />
+    <span class="sr-only">Correo electrónico</span>
+</a>
+
+<a 
+    href="https://www.linkedin.com/in/alejo-kannemann/" 
+    target="_blank"
+    aria-label="Perfil de LinkedIn"
+    rel="noopener noreferrer"
+>
+    <LinkedInIcon size="24" color="black" className="bg-sky-700 rounded-xl" />
+    <span class="sr-only">LinkedIn</span>
+</a>
 </div>
